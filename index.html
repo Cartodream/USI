@@ -1,0 +1,93 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/placecard.css" type="text/css" media="all"/>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" type="text/css" media="all"/>
+	<link rel="shortcut icon" type="image/x-icon" href="../images/entity11.png" />
+
+
+    </head>
+<body class="OpenStreetMap">
+    <div id="map"></div>
+    
+    <script>
+        let map = null;
+        let placecard = "\n                   <div class=\"placecard__left\">\n                <p class=\"placecard__business-name\">Itinéraire vers nos stades<\/p>\n  <a class=\"placecard__direction-link\" target=\"_blank\" href=\"https:\/\/maps.google.com\/maps\/dir\/\/Complexe Sportif Jacques Lavédrine, 4 rue jean monnet , issoire\">\n\n                   Complexe Sportif Jacques Lavédrine<br>\n <a class=\"placecard__direction-link\" target=\"_blank\" href=\"https:\/\/maps.google.com\/maps\/dir\/\/Complexe Sportif Albert Buisson , issoire\">\n\n                    Complexe Sportif Albert Buisson<br>\n                  <a class=\"placecard__direction-link\" target=\"_blank\" href=\"https:\/\/maps.google.com\/maps\/dir\/\/Complexe Sportif du Bout du Monde, Issoire\">\n\n                    Complexe Sportif du Bout du Monde<br>\n                <\/p>\n            ";
+  
+        let latitude = 45.54905697654873;
+        let longitude = 3.2710935334680578;
+        let zoom = 15;
+        let mapType = false;
+                let scale = false;
+        
+        
+        function initMap() {
+            
+                            
+                map = L.map('map', {
+                    center: [45.54887162116755, 3.2598257795920373],
+                    zoom: zoom,
+                    zoomControl: false,
+                    gestureHandling: true,
+                    attributionControl: false
+                });
+
+		var LeafIcon = L.Icon.extend({
+		options: {
+			iconSize:     [60, 60],
+		}
+	});
+
+	var greenIcon = new LeafIcon({iconUrl: 'https://issoire-rugby.fr/wp-content/uploads/2019/09/Logo_Categorie-USI_Rugby-2019-2020-Seniors-250x250.png'});
+
+	L.marker([51.5, -0.09], {icon: greenIcon}).addTo(map);
+
+                L.tileLayer('http://www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png', {}).addTo(map);
+		
+		
+                L.marker([latitude, longitude], {icon: greenIcon}).bindPopup("Complexe sportif Jacques Lavedrine").addTo(map);
+		L.marker([45.5499465890994, 3.249030354038209], {icon: greenIcon}).bindPopup("Complexe sportif Albert Buisson").addTo(map);
+		L.marker([45.54463949318573, 3.2587388044521903], {icon: greenIcon}).bindPopup("Complexe sportif du Bout du Monde").addTo(map);	
+                if(scale) {
+                    L.control.scale({
+                        position: 'bottomright',
+                        imperial: false
+                    }).addTo(map);
+                }
+                L.control.zoom({
+                    position: 'bottomright',
+                }).addTo(map);
+                
+                                    
+                    L.control.custom({
+                        position: 'topleft',
+                        content: placecard,
+                        classes: 'location-infobox',
+                        /*
+                        style: {
+                            width: '200px',
+                            margin: '10px',
+                            padding: '5px 10px',
+                            background: '#fff',
+                        },
+                         */
+                    }).addTo(map);
+                    
+                                        
+        }
+        
+
+                    window.onload = function(){
+                initMap();
+            };
+        
+    </script>
+            <script type="text/javascript" src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script type="text/javascript" src="https://cdnnen.proxi.tools/res/global/js/leaflet/Leaflet.Control.Custom.js"></script>
+
+
+
+    </body>
+</html>
